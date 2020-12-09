@@ -1,0 +1,363 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+scroll-view ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+.scroll-view_H {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.scroll-view-item {
+  max-width: 150rpx;
+  overflow: hidden;
+  padding: 4px 10px;
+  height: 45rpx;
+  display: inline-block;
+  border-bottom: 1px solid #F8F8F8;
+}
+.scroll-view-item .line {
+  height: 1px;
+}
+.scroll-view-item.active {
+  color: #FF6900;
+}
+.scroll-view-item.active .line {
+  background-color: #FF6900;
+  margin: 0 6px;
+  margin-top: 7px;
+}
+.scroll-view-item:last-child {
+  margin-right: 0;
+}
+.scroll-view-item image {
+  width: 100%;
+  height: 120rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+}
+.title_level1 {
+  font-size: 12px;
+}
+.title_level2 {
+  font-size: 24rpx;
+  color: #C8C7CC;
+}
+page {
+  height: 100%;
+}
+.content {
+  color: #333333;
+  position: relative;
+  height: 100%;
+}
+.content .hd button {
+  background-color: #FFFFFF;
+  color: #000;
+  position: fixed;
+  height: 240px;
+  width: 65%;
+  top: 25%;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 200;
+  opacity: 0;
+}
+.content .hd image {
+  position: fixed;
+  width: 70%;
+  top: 27%;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.content .hd text {
+  position: fixed;
+  /* bottom: 57px; */
+  color: #999999;
+  background: #fff;
+  width: 24px;
+  height: 24px;
+  line-height: 20px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  /* right: 5%; */
+  margin-left: -20px;
+  opacity: 0.5;
+  z-index: 20000;
+  top: 27%;
+  right: 73px;
+}
+.content .buy .buy-content {
+  padding: 20px 20px 0 20px;
+  height: 40px;
+}
+.content .buy .config-buy {
+  margin-top: 30px;
+  color: #FFFFFF;
+  width: 90%;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FF6900;
+  -webkit-border-radius: 22px;
+          border-radius: 22px;
+}
+.content .bg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  opacity: 0.6;
+  z-index: 10;
+}
+.content .no-login {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 100px;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.content .no-login image {
+  width: 99px;
+  height: 106px;
+}
+.content .no-login text {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999999;
+}
+.content .no-login button {
+  width: 115px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  background: #FF6900;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+.content .model-km .km-content {
+  padding-bottom: 10px;
+}
+.content .model-km .km-content .title {
+  font-size: 14px;
+  margin-left: 16px;
+  padding-top: 10px;
+}
+.content .model-km .km-content .km-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 10px 18px;
+  margin: 0 -10px;
+}
+.content .model-km .km-content .km-list .km-text {
+  font-size: 12px;
+  width: 20%;
+  line-height: 26px;
+  margin: 5px 6px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #EEEEEE;
+}
+.content .model-km .km-content .km-list .km-text.activekm {
+  color: #FFFFFF;
+  background-color: #FF6900;
+}
+.content .model-km .km-content .config-km {
+  margin: 10px 18px;
+  color: #FFFFFF;
+  width: 90%;
+  background-color: #FF6900;
+  -webkit-border-radius: 22px;
+          border-radius: 22px;
+}
+.content .xm-chose .all {
+  overflow: hidden;
+  height: 100%;
+  font-size: 14px;
+}
+.content .xm-chose .all .left {
+  float: left;
+  width: 120px;
+  padding: 5px 20px 5px 0;
+  margin-left: 5px;
+  height: 100%;
+  position: relative;
+  border-right: 1px solid #EEEEEE;
+}
+.content .xm-chose .all .left view {
+  padding-left: 20px !important;
+  height: 20px;
+  overflow: hidden;
+  margin-bottom: 29px !important;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.content .xm-chose .all .left view.active {
+  color: #FF6900;
+  border-left: 2px solid #FF6900;
+}
+.content .xm-chose .all .right {
+  overflow: hidden;
+  margin-left: 20px;
+  padding-left: 20px;
+  margin: 10px;
+}
+.content .xm-chose .all .right view {
+  margin: 10px 0;
+  margin-bottom: 16px !important;
+}
+.content .xm-chose .all .right view.active {
+  color: #FF6900;
+}
+.content .chose-content {
+  padding: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.content .chose-content .xm {
+  font-size: 18px;
+}
+.content .chose-content .chose {
+  font-size: 12px;
+  width: 140px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-align: right;
+}
+.content .chose-content .chose text {
+  margin-right: 5px;
+}
+.content .chose-content .chose image {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.content .box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.content .box.active {
+  opacity: 0;
+}
+.content .class-details {
+  background-color: #FFFFFF;
+  width: 45.5%;
+  margin-left: 3%;
+  margin-top: 20px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+}
+.content .class-details .class-img image {
+  width: 100%;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  height: 95px;
+}
+.content .class-details .class-info {
+  padding: 10px;
+}
+.content .class-details .class-info .title {
+  font-size: 12px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.content .class-details .class-info .info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.content .class-details .class-info .info text {
+  font-size: 8px;
+  color: #999999;
+  line-height: 25px;
+}
+.content .class-details .class-info .number {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.content .class-details .class-info .number .people-num image {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.content .class-details .class-info .number .people-num text {
+  font-size: 8px;
+  color: #999999;
+}
+.content .class-details .class-info .number .state {
+  color: #F54130;
+  font-size: 10px;
+  line-height: 25px;
+}
+

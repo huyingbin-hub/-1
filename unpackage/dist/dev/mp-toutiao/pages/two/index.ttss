@@ -1,0 +1,336 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+page {
+  height: 100%;
+}
+page {
+  height: 100%;
+}
+scroll-view ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+.scroll-view_H {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.scroll-view-item {
+  max-width: 150rpx;
+  overflow: hidden;
+  padding: 4px 10px;
+  height: 45rpx;
+  display: inline-block;
+  border-bottom: 1px solid #F8F8F8;
+}
+.scroll-view-item .line {
+  height: 1px;
+}
+.scroll-view-item.active {
+  color: #FF6900;
+}
+.scroll-view-item.active .line {
+  background-color: #FF6900;
+  margin: 0 6px;
+  margin-top: 7px;
+}
+.scroll-view-item:last-child {
+  margin-right: 0;
+}
+.scroll-view-item image {
+  width: 100%;
+  height: 120rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+}
+.title_level1 {
+  font-size: 12px;
+}
+.title_level2 {
+  font-size: 24rpx;
+  color: #C8C7CC;
+}
+.content {
+  color: #333333;
+}
+.content .model-km .km-content {
+  padding-bottom: 10px;
+}
+.content .model-km .km-content .title {
+  font-size: 14px;
+  margin-left: 16px;
+  padding-top: 10px;
+}
+.content .model-km .km-content .km-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 10px 18px;
+  margin: 0 -10px;
+}
+.content .model-km .km-content .km-list .km-text {
+  font-size: 12px;
+  width: 20%;
+  line-height: 26px;
+  margin: 5px 6px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #EEEEEE;
+}
+.content .model-km .km-content .km-list .km-text.activekm {
+  color: #FFFFFF;
+  background-color: #FF6900;
+}
+.content .model-km .km-content .config-km {
+  margin: 10px 18px;
+  color: #FFFFFF;
+  width: 90%;
+  background-color: #FF6900;
+  -webkit-border-radius: 22px;
+          border-radius: 22px;
+}
+.content .xm-chose .all {
+  overflow: hidden;
+  height: 100%;
+  font-size: 14px;
+}
+.content .xm-chose .all .left {
+  float: left;
+  width: 120px;
+  padding: 5px 20px 5px 0;
+  margin-left: 5px;
+  height: 100%;
+  position: relative;
+  border-right: 1px solid #EEEEEE;
+}
+.content .xm-chose .all .left view {
+  padding-left: 20px !important;
+  font-weight: bold;
+  margin: 10px 0;
+  margin-bottom: 29px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.content .xm-chose .all .left view.active {
+  color: #FF6900;
+  border-left: 2px solid #FF6900;
+}
+.content .xm-chose .all .right {
+  overflow: hidden;
+  margin-left: 20px;
+  padding-left: 20px;
+  margin: 10px;
+}
+.content .xm-chose .all .right view {
+  margin: 10px 0;
+  margin-bottom: 16px !important;
+}
+.content .xm-chose .all .right view.active {
+  color: #FF6900;
+}
+.content .chose-content {
+  padding: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.content .chose-content .xm {
+  font-size: 18px;
+}
+.content .chose-content .chose {
+  font-size: 12px;
+  height: 30px;
+  text-align: right;
+  width: 140px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.content .chose-content .chose text {
+  margin-right: 5px;
+}
+.content .chose-content .chose image {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.two {
+  color: #000;
+  position: relative;
+  height: 100%;
+}
+.two .no-login {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 100px;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.two .no-login image {
+  width: 99px;
+  height: 106px;
+}
+.two .no-login text {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999999;
+}
+.two .no-login button {
+  width: 115px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  background: #FF6900;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+.two .bg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #000;
+  opacity: 0.6;
+  z-index: 10;
+}
+.two .no-data {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin-top: 50px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  /*align-items: center; */
+}
+.two .no-data image {
+  width: 100px;
+  height: 106px;
+  display: block;
+}
+.two .no-data text {
+  font-size: 14px;
+  color: #999999;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+.two .content1 {
+  padding: 10px 16px;
+}
+.two .content1 .content-list {
+  -webkit-box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.16);
+          box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.16);
+  margin-bottom: 20px;
+  padding: 12px 14px 12px 10px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  overflow: hidden;
+}
+.two .content1 .content-list .content-img {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  vertical-align: middle;
+  float: left;
+  height: 100%;
+  width: 15%;
+  text-align: center;
+}
+.two .content1 .content-list .content-img image {
+  width: 35px;
+  height: 35px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  margin-top: 5px;
+}
+.two .content1 .content-list .content-img view {
+  font-size: 10px;
+  margin-top: 5px;
+}
+.two .content1 .content-list .content-text {
+  padding-left: 10px;
+  overflow: hidden;
+}
+.two .content1 .content-list .content-text .title {
+  font-size: 12px;
+  font-weight: bold;
+  max-width: 90%;
+  height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.two .content1 .content-list .content-text .content {
+  font-size: 12px;
+  color: #999999;
+  line-height: 30px;
+}
+.two .content1 .content-list .content-text .info .left {
+  display: inline-block;
+}
+.two .content1 .content-list .content-text .info .left image {
+  width: 12px;
+  height: 12px;
+}
+.two .content1 .content-list .content-text .info .left text {
+  font-size: 10px;
+  color: #999999;
+  margin-left: 5px;
+}
+.two .content1 .content-list .content-text .info button {
+  float: right;
+  background-color: #FF6900;
+  color: #FFFFFF;
+  width: 80px;
+  height: 24px;
+  line-height: 23px;
+  font-size: 12px;
+}
+
