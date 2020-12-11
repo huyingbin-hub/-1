@@ -8,7 +8,10 @@
     "pages/two/index",
     "pages/three/login",
     "pages/three/classRecord",
-    "pages/three/index"
+    "pages/three/index",
+    "pages/login/userLogin",
+    "pages/login/register",
+    "pages/login/forgetPassword"
   ],
   "subPackages": [],
   "window": {

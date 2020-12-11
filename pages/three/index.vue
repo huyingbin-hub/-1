@@ -8,8 +8,6 @@
 					<image style='width: 66px;height: 66px;' src="../../static/touxiang.png"></image>
 				</view>
 				<view class="login-now">
-					<!-- @click="gologin" -->
-					<!-- <view v-if="userInfoAll!='undefined'">{{userInfoAll.nickname}}</view> -->
 					<button v-if="phone!=''" style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" class=""
 					 open-type="getUserInfo" @getuserinfo="wxGetUserInfo" withCredentials="true">立即登录</button>
 					<button style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" open-type="getPhoneNumber"
@@ -18,6 +16,7 @@
 				</view>
 			</view>
 		</view>
+		
 		<!--登录后页面-->
 		<view class="login-after" v-if="userKey!=''">
 			<view class="nav-after">
@@ -49,15 +48,12 @@
 			</view>
 			<view class="click-details">
 				<image style="width: 15px;height: 15px;vertical-align: middle;" src="../../static/right.png"></image>
-				<!-- <u-icon style='vertical-align: middle;' name='arrow-right' color='#999999' size='30'></u-icon> -->
 			</view>
 		</view>
 		<view class="sign-out" v-if="userKey!=''">
 			<button @click="loginNo">退出登陆</button>
 		</view>
-		<!-- <view @click="goHdpage">
-			<image style="width: 100%;height: 105px;" src="../../static/huodong2.png"></image>
-		</view> -->
+		
 	</view>
 </template>
 
@@ -106,29 +102,17 @@
 
 		},
 		methods: {
-			/* goHdpage(){
-				if(this.phone==''){
-					uni.showToast({
-						title: "请先注册~",
-						icon: "none"
-					});
-				}
-				uni.navigateTo({
-				    url: '/pages/one/hdPage?phone='+this.phone+'&type='+this.type
-				});
-			}, */
 			//获取看课时长
 			time() {
 				this.$api.three.time({
 					cache_key: this.userKey,
-
 				}).then(res => {
 					if (res.data.event == '100') {
 						this.timeData = res.data
 					}
-
 				})
 			},
+			
 			//退出登录
 			loginNo() {
 				this.$api.loginOut({
@@ -150,6 +134,7 @@
 					}
 				})
 			},
+			
 			wxGetUserInfo: function(res) {
 				if (!res.detail.iv) {
 					uni.showToast({
@@ -161,6 +146,8 @@
 
 				this.nowLogin(res);
 			},
+			
+			// 微信 获取手机号弹窗状态
 			getPhoneNumber(e) {
 				if (e.detail.errMsg == "getPhoneNumber:ok") {
 					console.log('用户点击了接受', e);
@@ -171,6 +158,7 @@
 					console.log('用户点击了拒绝');
 				}
 			},
+			
 			//获取手机号
 			getPhone(e) {
 				console.log(e.detail, '-----')
@@ -192,8 +180,6 @@
 								return false;
 							}
 							if (res.data.event == '100') {
-								/* uni.setStorageSync('phone',  res.data.data);
-								_this.phone= uni.getStorageSync('phone'); */
 								_this.phone = res.data.data
 								uni.setStorage({
 									key: "userInfoAll",
@@ -208,6 +194,7 @@
 					}
 				})
 			},
+			
 			// 登录 发请求  存数据
 			nowLogin(e) {
 				console.log(this.phone, '9999')
@@ -249,12 +236,8 @@
 				})
 
 			},
-			// 跳转登录页
-			// gologin() {
-			// 	uni.navigateTo({
-			// 		url: '/pages/three/login'
-			// 	});
-			// },
+
+			// 判断是否登录 是否存储手机号
 			goRecord() {
 				if (this.userKey == '') {
 					uni.showToast({
@@ -280,7 +263,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.three {
 		.my-list {
 			// margin-top: 10px;

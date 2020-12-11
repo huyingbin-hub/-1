@@ -38,16 +38,6 @@
 			this.userKey = uni.getStorageSync('userKey');
 			this.list()
 			var _this = this;
-			/* uni.login({
-			  provider: 'weixin',
-			  success: function (res) {
-				_this.getcode=res.code;
-				 // uni.setStorageSync('getcode', _this.getcode);
-				   console.log('----')
-				 
-				
-			  }
-			}); */
 		},
 		methods: {
 			// 查询数据
@@ -63,12 +53,14 @@
 					}
 				})
 			},
+			
 			//选择项目
 			choseXm(index, xm) {
 				uni.setStorageSync('xmData', xm);
 				this.xmChildactive = 0;
 				this.xmIndex = index;
 			},
+			
 			//选择ke目
 			choseXmchild(index, i) {
 				this.xmChildactive = index;
@@ -76,22 +68,12 @@
 				uni.switchTab({
 					url: '/pages/one/index'
 				});
-				/* if(this.userKey==''){
-					uni.switchTab({
-					    url: '/pages/three/index'
-					});
-				}else{
-					uni.switchTab({
-					    url: '/pages/one/index'
-					});
-				} */
-
 			},
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	page {
 		height: 100%;
 	}

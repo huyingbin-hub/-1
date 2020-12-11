@@ -24,34 +24,34 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.uni-form-item .title {
+.uni-form-item .title.data-v-2d7f8fcf {
   padding: 20rpx 0;
 }
-page {
+page.data-v-2d7f8fcf {
   height: 93%;
   position: relative;
 }
-.login {
+.login.data-v-2d7f8fcf {
   margin-top: 40px;
 }
-.login .uni-form-item {
+.login .uni-form-item.data-v-2d7f8fcf {
   margin: 30px;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   border-bottom: 1px solid #eeeeee;
 }
-.login .uni-form-item image {
+.login .uni-form-item image.data-v-2d7f8fcf {
   width: 16px;
   height: 16px;
   vertical-align: middle;
   margin-top: 4px;
   margin-right: 5px;
 }
-.login .uni-form-item .uni-input {
+.login .uni-form-item.data-v-2d7f8fcf .uni-input {
   font-size: 12px;
 }
-.login .uni-column {
+.login .uni-column.data-v-2d7f8fcf {
   margin: 30px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,28 +61,28 @@ page {
           justify-content: space-between;
   border-bottom: 1px solid #eeeeee;
 }
-.login .uni-column image {
+.login .uni-column image.data-v-2d7f8fcf {
   width: 16px;
   height: 16px;
   vertical-align: middle;
   margin-top: 4px;
   margin-right: 5px;
 }
-.login .uni-column .uni-input {
+.login .uni-column.data-v-2d7f8fcf .uni-input {
   font-size: 12px;
 }
-.login .uni-column button {
+.login .uni-column button.data-v-2d7f8fcf {
   width: 60px;
   height: 30px;
   font-size: 12px;
   margin-right: 2px;
   margin-bottom: 5px;
 }
-.login .uni-btn-v {
+.login .uni-btn-v.data-v-2d7f8fcf {
   margin: 0 30px;
   text-align: center;
 }
-.login .uni-btn-v button {
+.login .uni-btn-v button.data-v-2d7f8fcf {
   color: #FFFFFF;
   width: 100%;
   font-size: 14px;
@@ -91,12 +91,12 @@ page {
           border-radius: 10px;
   margin-bottom: 10px;
 }
-.login .uni-btn-v text {
+.login .uni-btn-v text.data-v-2d7f8fcf {
   width: 100%;
   color: #999999;
   font-size: 12px;
 }
-.login .tiaokuan {
+.login .tiaokuan.data-v-2d7f8fcf {
   position: absolute;
   bottom: 10px;
   font-size: 12px;

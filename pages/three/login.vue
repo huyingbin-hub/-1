@@ -71,7 +71,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .uni-form-item .title {
         padding: 20rpx 0;
     }

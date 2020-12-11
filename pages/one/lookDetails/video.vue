@@ -236,7 +236,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	 .tool-bar {
 	        color: #fff;
 	        position: fixed;

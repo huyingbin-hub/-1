@@ -40,6 +40,7 @@
 			<view class="wrap">
 				<u-back-top :scroll-top="scrollTop"></u-back-top>
 			</view>
+
 			<!--内容-->
 			<view class="chose-content">
 				<view @tap="show">
@@ -50,15 +51,9 @@
 					vertical-align: middle;
 					margin-left: 5px;
 					color: #999999;">></text>
-					<!-- <u-icon style='color: #999999;font-size: 14px;margin-left: 5px;vertical-align: middle;' name="arrow-right-double"></u-icon> -->
 				</view>
-
-
 				<view class="chose">
-					<!-- @click="open" -->
 					<text>{{kmChose}}</text>
-					<!-- <img src='../static/sanjiao.png'> -->
-					<!-- <image src="../../static/sanjiao.png"></image> -->
 				</view>
 			</view>
 			<view style="">
@@ -77,6 +72,8 @@
 		<view class="wrap">
 			<u-back-top :scroll-top="scrollTop1"></u-back-top>
 		</view>
+
+		<!-- 提示用户登录注册 -->
 		<view class="no-data" v-if='myclassList.length==0&&userKey!=""'>
 			<image src="../../static/pic_blank.png"></image>
 			<text>您还没有购买过课程哟～</text>
@@ -92,9 +89,9 @@
 				 withCredentials="true">立即注册</button>
 				<button open-type="getUserInfo" v-if="phone!=''" @getuserinfo="wxGetUserInfo" withCredentials="true">立即登录</button>
 			</view>
-
 		</view>
-		<!-- v-if='myclassList.length!=0' -->
+
+
 		<view class="content1" v-if="userKey!=''&&myclassList.length!=0">
 			<view class="content-list" v-for="(i,index) in myclassList" :key='index'>
 				<view class="content-img">
@@ -211,22 +208,24 @@
 			//获取用户唯一标识
 			this.userInfoAll = userinfoAll;
 			this.phone = this.userInfoAll.mobile
-
-			// this.phone= uni.getStorageSync('phone');
 			//userKey
 			this.userKey = uni.getStorageSync('userKey');
 			this.oneData()
 		},
+		
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			console.log(option, 'canshu----')
 			this.isactive = option.index;
 		},
+		
 		methods: {
+			// 立即观看 跳转视频界面
 			look(data) {
 				uni.navigateTo({
 					url: '/pages/one/lookDetails/index?id=' + data.id + '&key=' + this.userKey
 				});
 			},
+
 			getPhoneNumber(e) {
 				if (e.detail.errMsg == "getPhoneNumber:ok") {
 					console.log('用户点击了接受', e);
@@ -237,6 +236,7 @@
 					console.log('用户点击了拒绝');
 				}
 			},
+			
 			//获取手机号
 			getPhone(e) {
 				var _this = this;
@@ -275,6 +275,7 @@
 				})
 
 			},
+
 			wxGetUserInfo: function(res) {
 				console.log('点击了登录')
 				if (!res.detail.iv) {
@@ -286,6 +287,7 @@
 				}
 				this.nowLogin(res);
 			},
+
 			nowLogin(e) {
 				var _this = this;
 				uni.login({
@@ -322,7 +324,6 @@
 								//相当于token  唯一标识
 								uni.setStorageSync('userKey', res.data.data.cache_key);
 								const key = uni.getStorageSync('userKey');
-
 								if (key) {
 									_this.userKey = key;
 
@@ -334,8 +335,9 @@
 				})
 
 			},
+
+			//获取选择的科目
 			oneData() {
-				//获取选择的科目
 				const km = uni.getStorageSync('kmData');
 				if (km) {
 					this.kmData = km;
@@ -349,6 +351,7 @@
 				}
 				this.getKmlist();
 			},
+
 			//获取项目列表
 			list() {
 				this.$api.xmList().then(res => {
@@ -360,6 +363,7 @@
 					}
 				})
 			},
+
 			//获取科目课程类型列表
 			getKmlist() {
 				this.$api.one.kmList({
@@ -368,15 +372,13 @@
 					console.log(res.data)
 					if (res.data.event == '100') {
 						this.kmList = res.data.list;
-						// this.kmChosedata = this.kmList[0];
-						// this.kmChose = this.kmList[0].lb;
 						this.kcList = res.data.kclx;
 						this.kcChosedata = this.kcList[0];
 						this.getMyclass()
 					}
 				})
-
 			},
+
 			//获取我的课程列表
 			getMyclass() {
 				this.myclassData = {
@@ -395,19 +397,18 @@
 					}
 				})
 			},
+
 			drawerClick() {
 				this.drawerShow = false;
 			},
-			getChild(v) {
-				console.log(v, '0000');
-				this.drawerShow = v;
-			},
+
 			//选择项目
 			choseXm(index, data) {
 				uni.setStorageSync('xmData', data);
 				this.xmChildactive = 0;
 				this.xmIndex = index;
 			},
+
 			//选择子项目
 			choseXmchild(index, i) {
 				this.xmChildactive = index;
@@ -417,8 +418,8 @@
 				this.oneData()
 
 			},
-			//显示抽屉
 
+			//显示抽屉
 			show() {
 				this.list()
 				this.drawerShow = true;
@@ -427,8 +428,8 @@
 			choseKm(index, data) {
 				this.kmChosedata = data;
 				this.kmactive = index;
-
 			},
+
 			choseNow(index, data) {
 				this.kcChosedata = data;
 				this.isactive = index;
@@ -453,7 +454,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	page {
 		height: 100%;
 	}

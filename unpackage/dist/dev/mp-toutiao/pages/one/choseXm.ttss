@@ -24,18 +24,18 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page {
+page.data-v-0b4ed9ff {
   height: 100%;
 }
-.chose-xm {
+.chose-xm.data-v-0b4ed9ff {
   height: 100%;
 }
-.chose-xm .all {
+.chose-xm .all.data-v-0b4ed9ff {
   overflow: hidden;
   height: 100%;
   font-size: 12px;
 }
-.chose-xm .all .left {
+.chose-xm .all .left.data-v-0b4ed9ff {
   float: left;
   margin-left: 5px;
   width: 120px;
@@ -45,7 +45,7 @@ page {
   position: relative;
   border-right: 1px solid #EEEEEE;
 }
-.chose-xm .all .left view {
+.chose-xm .all .left view.data-v-0b4ed9ff {
   padding-left: 20px !important;
   max-height: 20px;
   overflow: hidden;
@@ -56,21 +56,21 @@ page {
   margin: 10px 0;
   margin-bottom: 29px !important;
 }
-.chose-xm .all .left view.active {
+.chose-xm .all .left view.active.data-v-0b4ed9ff {
   color: #FF6900;
   border-left: 2px solid #FF6900;
 }
-.chose-xm .all .right {
+.chose-xm .all .right.data-v-0b4ed9ff {
   overflow: hidden;
   margin-left: 20px;
   padding-left: 20px;
   margin: 10px;
 }
-.chose-xm .all .right view {
+.chose-xm .all .right view.data-v-0b4ed9ff {
   margin: 10px 0;
   margin-bottom: 16px !important;
 }
-.chose-xm .all .right view.active {
+.chose-xm .all .right view.active.data-v-0b4ed9ff {
   color: #FF6900;
 }
 

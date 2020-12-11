@@ -52,14 +52,33 @@
 				"navigationBarTitleText": "听课记录"
 			}
 		},
-		
-		
 		{
 			"path": "pages/three/index",
 			"style": {
 				"navigationBarTitleText": "我的",
 				"navigationStyle": "custom" ,// 隐藏系统导航栏
 				"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+			}
+		},
+		{
+			"path": "pages/login/userLogin",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码",
+				"navigationStyle": "custom"
 			}
 		}
 		
