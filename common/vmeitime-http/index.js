@@ -6,137 +6,141 @@ import http from './interface'
  * 
  */
 // 默认全部导出  import api from '@/common/vmeitime-http/'
+// loginUrl
 export default {
-	//获取用户登录状态
-	getOpenId(data){
+	// 微信/头条小程序登录
+	xcxLogin(data){
 		return http.request({
-		    url: '/ZxtWxLogin/getOpenId',
-		    method: 'POST', 
-		    data,
+			url: http.config.loginUrl + '/Login/login',
+			method: 'POST',
+			data,
 		})
-	
 	},
-	PlayAutha(data){
-			  return http.request({
-			      url:'/video/getStsInfo',
-			      method: 'POST', 
-			      data,
-			  })
+	//获取用户登录状态
+	getOpenId(data) {
+		return http.request({
+			url: http.config.baseUrl + '/ZxtWxLogin/getOpenId',
+			method: 'POST',
+			data,
+		})
+	},
+	// 用户授权登录
+	PlayAutha(data) {
+		return http.request({
+			url: http.config.baseUrl + '/video/getStsInfo',
+			method: 'POST',
+			data,
+		})
 	},
 	//获取用户手机号
-	getPhone(data){
+	getPhone(data) {
 		return http.request({
-		    url: '/ZxtWxLogin/bindMobile',
-		    method: 'POST', 
-		    data,
+			url: http.config.baseUrl + '/ZxtWxLogin/bindMobile',
+			method: 'POST',
+			data,
 		})
-	
 	},
 	//用户登录
-	login(data){
+	login(data) {
 		return http.request({
-		    url: '/ZxtWxLogin/getUserInfo',
-		    method: 'POST', 
-		    data,
+			url: http.config.baseUrl + '/ZxtWxLogin/getUserInfo',
+			method: 'POST',
+			data,
 		})
-	
 	},
 	//支付
-	pay(data){
+	pay(data) {
 		return http.request({
-		    url: '/ZxtWxPay/pay',
-		    method: 'POST', 
-		    data,
+			url: http.config.baseUrl + '/ZxtWxPay/pay',
+			method: 'POST',
+			data,
 		})
-	
 	},
 	//退出登录
-	loginOut(data){
+	loginOut(data) {
 		return http.request({
-		    url: '/ZxtWxLogin/logOut',
-		    method: 'POST', 
-		    data,
+			url: http.config.baseUrl + '/ZxtWxLogin/logOut',
+			method: 'POST',
+			data,
 		})
-	
 	},
 	//项目列表
-	xmList(data){
+	xmList(data) {
 		return http.request({
-		    url: '/ZxtWxInfo/getAllXm',
-		    method: 'POST', 
-		    data,
+			url: http.config.baseUrl + '/ZxtWxInfo/getAllXm',
+			method: 'POST',
+			data,
 		})
-	
 	},
-	
-	one:{
-		kmList(data){
+
+	one: {
+		kmList(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/getAllKm',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/getAllKm',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
 		//首页课程列表
-		classList(data){
+		classList(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/classList',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/classList',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
 		//课程详情
-		kcDtails(data){
+		kcDtails(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/kcmlList',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/kcmlList',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
-		update_play_history(data){
+		update_play_history(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/addVideoJl',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/addVideoJl',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
-		
-		
+
+
 	},
-	two:{
+	two: {
 		//我的课程列表
-		myclassList(data){
+		myclassList(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/myVod',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/myVod',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
-		
+
 	},
-	three:{
+	three: {
 		//我的课程列表
-		historyClass(data){
+		historyClass(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/kcPlayJl',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/kcPlayJl',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
 		//看课时长
-		time(data){
+		time(data) {
 			return http.request({
-			    url: '/ZxtWxInfo/myScDay',
-			    method: 'POST', 
-			    data,
+				url: http.config.baseUrl + '/ZxtWxInfo/myScDay',
+				method: 'POST',
+				data,
 			})
-		
+
 		},
 	}
 }

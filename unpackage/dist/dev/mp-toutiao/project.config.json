@@ -1,26 +1,21 @@
 {
-    "setting": {
-        "autoCompile": true,
-        "es6": false,
-        "minified": false,
-        "mockUpdate": false,
-        "newFeature": false,
-        "postcss": false,
-        "urlCheck": false
-    },
-    "appid": "tt2dfb5b46b2c000ef",
-    "projectname": "uni.zhongxuetang",
-    "condition": {
-        "miniprogram": {
-            "current": 0,
-            "list": [
-                {
-                    "name": "",
-                    "path": "",
-                    "query": "",
-                    "id": 0
-                }
-            ]
+  "setting": {
+    "urlCheck": false,
+    "es6": true
+  },
+  "appid": "ttedf99b4472c2c82e",
+  "projectname": "uni.zhongxuetang",
+  "condition": {
+    "miniprogram": {
+      "current": 0,
+      "list": [
+        {
+          "name": "",
+          "path": "",
+          "query": "",
+          "id": 0
         }
+      ]
     }
+  }
 }

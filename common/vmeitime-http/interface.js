@@ -1,74 +1,72 @@
-
 import Vue from 'vue';
 const $this = Vue.prototype
 // const ENV_SUFFIX = process.env.NODE_ENV === 'production'
 //   ? location[('111h11' + 1 + '11o22' + 1 + '221s11' + 1 + '1t22').replace(/\d+/g, '')].split('.')[1]
 //   : 'zhongjianedu';
 //   console.log(ENV_SUFFIX,'klll')
-  const ENV_SUFFIX='zhongjianedu';
+const ENV_SUFFIX = 'zhongjianedu';
 //拦截器
 const decorator_resource_info = (data) => {
-  if (!ENV_SUFFIX) return '';
+	if (!ENV_SUFFIX) return '';
 
-  data['timestamp'] = Math.ceil(new Date() / 1000);
-  //sort key
-  const reverse_key = Object.keys(data).sort();
-  let resource_code = reverse_key.reduce((rst, v) => rst += `${v}=${ data[v]}&`, '').slice(0, -1) + ENV_SUFFIX;
-  data['sign'] =$this.$md5(resource_code);
-  data['logtype']='pc';
+	data['timestamp'] = Math.ceil(new Date() / 1000);
+	//sort key
+	const reverse_key = Object.keys(data).sort();
+	let resource_code = reverse_key.reduce((rst, v) => rst += `${v}=${ data[v]}&`, '').slice(0, -1) + ENV_SUFFIX;
+	data['sign'] = $this.$md5(resource_code);
+	data['logtype'] = 'pc';
 };
 export default {
 	config: {
-		baseUrl:process.env.NODE_ENV === 'development' ? '/dpc' : '',
-		baseUrl:'https://caigua.zhongjianedu.com/ztk.php',
+		baseUrl: process.env.NODE_ENV === 'development' ? '/dpc' : '',
+		// 正常使用url
+		baseUrl: 'https://caigua.zhongjianedu.com/ztk.php',
+		// 小程序登录url
+		loginUrl: 'https://www.zjtaoke.cn/login.php',
 		header: {
 			//'Content-Type':'application/json;charset=UTF-8',
-			'Content-Type':'application/x-www-form-urlencoded'
-		}, 
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
 		data: {},
 		method: "GET",
-		dataType: "json",  /* 如设为json，会对返回的数据做一次 JSON.parse */
+		dataType: "json",
+		/* 如设为json，会对返回的数据做一次 JSON.parse */
 		responseType: "text",
 		success() {},
 		fail() {},
 		complete() {},
 	},
-	
+
 	interceptor: {
 		request: null,
 		response: null
 	},
-	
+
 	request(options) {
 		if (!options) {
 			options = {}
 		}
 		options.baseUrl = options.baseUrl || this.config.baseUrl
 		options.dataType = options.dataType || this.config.dataType
-		options.url = options.baseUrl + options.url
+		// options.url = options.baseUrl + options.url
 		options.data = options.data || {}
 		options.method = options.method || this.config.method
 		//TODO 加密数据
 		if (options.data) {
-		
 			options.data = JSON.parse(JSON.stringify(options.data, (k, v) => (v === undefined || v === null) ? '' : v));
-			
-			if(options.data.transFormData == 'info'){
-				options.data = Vue.prototype.$toFormData('info',options.data);
+			if (options.data.transFormData == 'info') {
+				options.data = Vue.prototype.$toFormData('info', options.data);
 			}
-			
 			decorator_resource_info(options.data);
-			
 			let user = {}
 			try {
-			   const value = uni.getStorageSync('objList');
-			   if (value) {
-							  user = value
-							
-			   }
+				const value = uni.getStorageSync('objList');
+				if (value) {
+					user = value
+				}
 			} catch (e) {
-			   
-			   // error
+
+				// error
 			}
 			//增加用户信息
 			options.data.token = user.token || ''
@@ -80,8 +78,7 @@ export default {
 				let statusCode = response.statusCode
 				response.config = _config
 				if (process.env.NODE_ENV === 'development') {
-					if (statusCode === 200) {
-					}
+					if (statusCode === 200) {}
 				}
 				if (this.interceptor.response) {
 					let newResponse = this.interceptor.response(response)
@@ -108,9 +105,9 @@ export default {
 			_reqlog(_config)
 
 			if (process.env.NODE_ENV === 'development') {
-				
+
 				if (_config.data) {
-					
+
 				}
 			}
 
@@ -123,7 +120,7 @@ export default {
 		}
 		options.url = url
 		options.data = data
-		options.method = 'GET'  
+		options.method = 'GET'
 		return this.request(options)
 	},
 	post(url, data, options) {
@@ -161,9 +158,9 @@ export default {
  */
 function _reqlog(req) {
 	if (process.env.NODE_ENV === 'development') {
-		
+
 		if (req.data) {
-			
+
 		}
 	}
 	//TODO 调接口异步写入日志数据库
@@ -175,14 +172,14 @@ function _reqlog(req) {
 function _reslog(res) {
 	let _statusCode = res.statusCode;
 	if (process.env.NODE_ENV === 'development') {
-		
+
 		if (res.config.data) {
-			
+
 		}
-		
+
 	}
 	//TODO 除了接口服务错误外，其他日志调接口异步写入日志数据库
-	switch(_statusCode){
+	switch (_statusCode) {
 		case 200:
 			break;
 		case 401:
@@ -193,4 +190,3 @@ function _reslog(res) {
 			break;
 	}
 }
-

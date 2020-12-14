@@ -8,10 +8,10 @@
 					<image style='width: 66px;height: 66px;' src="../../static/touxiang.png"></image>
 				</view>
 				<view class="login-now">
-					<button v-if="phone!=''" style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" class=""
-					 open-type="getUserInfo" @getuserinfo="wxGetUserInfo" withCredentials="true">立即登录</button>
-					<button style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" open-type="getPhoneNumber"
-					 v-if="phone==''" @getphonenumber="getPhoneNumber" withCredentials="true">立即注册</button>
+					<button style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" class=""
+					 open-type="getUserInfo" @click="wxGetUserInfo" withCredentials="true">立即登录</button>
+					<!-- <button style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;" open-type="getPhoneNumber"
+					 v-if="phone==''" @getphonenumber="getPhoneNumber" withCredentials="true">立即注册</button> -->
 					<text>学习·遇见更美好的自己</text>
 				</view>
 			</view>
@@ -135,14 +135,15 @@
 				})
 			},
 			
-			wxGetUserInfo: function(res) {
-				if (!res.detail.iv) {
-					uni.showToast({
-						title: "您取消了授权,登录失败",
-						icon: "none"
-					});
-					return false;
-				}
+			wxGetUserInfo(res) {
+				console.log(res,'点击登录')
+				// if (!res.detail.iv) {
+				// 	uni.showToast({
+				// 		title: "您取消了授权,登录失败",
+				// 		icon: "none"
+				// 	});
+				// 	return false;
+				// }
 
 				this.nowLogin(res);
 			},
@@ -151,9 +152,7 @@
 			getPhoneNumber(e) {
 				if (e.detail.errMsg == "getPhoneNumber:ok") {
 					console.log('用户点击了接受', e);
-
 					this.getPhone(e);
-
 				} else {
 					console.log('用户点击了拒绝');
 				}
@@ -200,21 +199,26 @@
 				console.log(this.phone, '9999')
 				var _this = this;
 				uni.login({
+					// #ifdef APP-PLUS
 					provider: 'weixin',
+					// #endif
 					success: function(res) {
-						console.log(res, '----kkk')
+						console.log(res, '登录')
 						_this.code = res.code;
-
-						_this.$api.login({
-							code: _this.code,
-							encryptedData: e.detail.encryptedData,
-							iv: e.detail.iv,
-							user_phone: _this.phone
-						}).then(res => {
+						let datas = {
+							// #ifdef MP-WEIXIN
+							'info[type]': 'weixin',
+							// #endif
+							// #ifdef MP-TOUTIAO
+							'info[type]': 'zijie',
+							// #endif
+							'info[xcx]': 'zkt',
+							'info[code]': res.code,
+						}
+						_this.$api.xcxLogin(datas).then(res => {
 							if (res.data.event != '100') {
 								return false
 							}
-
 							if (res.data.event == '100') {
 								console.log('登录的信息', res.data)
 								//获取用户信息
@@ -234,7 +238,6 @@
 						})
 					}
 				})
-
 			},
 
 			// 判断是否登录 是否存储手机号
