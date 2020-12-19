@@ -196,8 +196,7 @@
 			//如果用户登陆过
 			const userinfoAll = uni.getStorageSync('userInfoAll');
 			this.userInfoAll = userinfoAll;
-			this.phone = this.userInfoAll.mobile
-			// this.phone=uni.getStorageSync('phone');
+			this.phone = this.userInfoAll.user_phone
 			//userKey//获取用户唯一标识
 			this.userKey = uni.getStorageSync('userKey');
 			this.oneData();
@@ -254,40 +253,6 @@
 						console.log('fail:' + JSON.stringify(err));
 					}
 				});
-			},
-
-			//获取手机号
-			getPhone(e) {
-				var _this = this;
-				uni.login({
-					provider: 'weixin',
-					success: function(res) {
-						_this.code = res.code;
-						_this.$api.getPhone({
-							code: _this.code,
-							encryptedData: e.detail.encryptedData,
-							iv: e.detail.iv
-						}).then(res => {
-							if (res.data.event != '100') {
-								uni.showToast({
-									title: '信息出错',
-									duration: 2000
-								});
-								return false;
-							}
-							if (res.data.event == '100') {
-								_this.phone = res.data.data
-								uni.setStorage({
-									key: "userInfoAll",
-									data: {
-										mobile: res.data.data
-									}
-								})
-								console.log('获取手机号的信息', _this.phone)
-							}
-						})
-					}
-				})
 			},
 
 			//获取选择的科目
@@ -362,8 +327,10 @@
 					this.$refs.popupBuy.open();
 					return false;
 				}
+				let url='/pages/one/lookDetails/index?id=' + data.id + '&key=' + this.userKey + '&phone=' + this.phone
+				console.log({url},'url')
 				uni.navigateTo({
-					url: '/pages/one/lookDetails/index?id=' + data.id + '&key=' + this.userKey + '&phone=' + this.phone
+					url: url
 				});
 			},
 
