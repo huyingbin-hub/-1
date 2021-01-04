@@ -1,9 +1,10 @@
 {
   "setting": {
     "urlCheck": false,
-    "es6": true
+    "es6": true,
+    "postcss": true
   },
-  "appid": "ttedf99b4472c2c82e",
+  "appid": "tt9b4dedf00476bf57",
   "projectname": "uni.zhongxuetang",
   "condition": {
     "miniprogram": {

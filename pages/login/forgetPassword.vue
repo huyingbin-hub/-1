@@ -124,28 +124,28 @@
 			//获取验证码
 			sendCode() {
 				if (!this.phone) {
-					this.show_toast("手机号不能为空")
-					return
+					this.show_toast('手机号不能为空');
+					return;
 				}
 				if (!this.checkPhone(this.phone)) {
-					this.show_toast("手机号格式不正确")
-					return
+					this.show_toast('手机号格式不正确');
+					return;
 				}
 				this.smsFlag = true;
-
+				
 				let postObj = {
-					type: "reg",
-					mphone: this.phone
+					user_phone: this.phone,
+					user_id: ''
 				};
-				// Services.getSendCode(postObj).then(res => {
-				// 	console.log(res)
-				// 	if (res.Flag) {
-				// 		this.verify_id = res.verify_id
-				// 		this.show_toast("发送成功")
-				// 	} else {
-				// 		this.show_toast(res.Message)
-				// 	}
-				// })
+				this.$api.sendsms(postObj).then(res => {
+					console.log(res);
+					if (res.data.event==100) {
+						this.show_toast('发送成功');
+					} else {
+						this.show_toast(res.data.msg);
+						return;
+					}
+				});
 				this.show_toast("发送成功")
 				var inter = setInterval(
 					function() {
@@ -193,27 +193,28 @@
 				console.log("注册", this.phone, this.authCode, this.password, this.affirmPassword)
 
 				let postObj = {
-					mphone: this.phone,
-					password: this.password,
-					yzm: this.authCode,
-					verify_id: this.verify_id
+					user_phone: this.phone,
+					new_pwd: this.password,
+					confirm_pwd: this.affirmPassword,
+					smscode: this.authCode,
+					zclx:'app'
 				};
 				uni.showLoading({
-					title: '注册中...',
+					title: '请稍后...',
 					icon: "none"
 				});
-
-				Services.userRegister(postObj).then(res => {
-					if (res.Flag) {
+				console.log({postObj},'参数')
+				this.$api.forgetpwd(postObj).then(res => {
 						console.log('res', res)
-						this.show_toast("注册成功")
+					if (res.event==100) {
+						this.show_toast("修改成功")
 						setTimeout(function() {
 							uni.reLaunch({
 								url: '/pages/login/login'
 							})
 						}, 500)
 					} else {
-						this.show_toast(res.Content)
+						this.show_toast(res.msg)
 					}
 				})
 			}

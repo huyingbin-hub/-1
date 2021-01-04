@@ -11,7 +11,11 @@
     "pages/three/index",
     "pages/login/userLogin",
     "pages/login/register",
-    "pages/login/forgetPassword"
+    "pages/login/forgetPassword",
+    "pages/install/install",
+    "pages/install/changePassword",
+    "pages/install/privacyAgreement",
+    "pages/protocol/protocol"
   ],
   "subPackages": [],
   "window": {

@@ -1,22 +1,26 @@
 <template>
 	<view class="three">
 		<!--登录前页面-->
-		<view class="no-login" v-if="userKey == null || userKey == undefined || userKey.length <= 0">
+		<view class="no-login" v-if="userKey == '' || phone == ''">
 			<view class="nav">我的</view>
 			<view class="login">
 				<view class="login-avatar"><image style="width: 66px;height: 66px;" src="../../static/touxiang.png"></image></view>
 				<view class="login-now">
-					<!-- #ifdef MP-WEIXIN -->
 					<button
 						style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;"
 						open-type="getPhoneNumber"
-						v-if="phone == null || phone == undefined || phone.length <= 0"
+						v-if="phone == '' && userKey !== ''"
 						@getphonenumber="getPhoneNumber"
 						withCredentials="true"
 					>
+						<!-- #ifdef MP-WEIXIN -->
 						立即注册
+						<!-- #endif -->
+						<!-- #ifdef MP-TOUTIAO -->
+						手机号一键登录
+						<!-- #endif -->
 					</button>
-					<!-- #endif -->
+
 					<!-- #ifdef MP-WEIXIN -->
 					<button
 						style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;"
@@ -32,7 +36,7 @@
 					<button
 						style="font-size: 12px;border: none;background-color: #FFFFFF;width: 118px;"
 						open-type="getUserInfo"
-						v-if="phone == null || phone == undefined || phone.length <= 0"
+						v-if="userKey == ''"
 						@click="ttGetUserInfo"
 						withCredentials="true"
 					>
@@ -45,7 +49,7 @@
 		</view>
 
 		<!--登录后页面-->
-		<view class="login-after" v-if="userKey != null && userKey != undefined && userKey.length > 0">
+		<view class="login-after" v-if="userKey !== '' && phone !== ''">
 			<view class="nav-after"><text style="z-index: 100;line-height: 120px;">我的</text></view>
 			<view class="user-info">
 				<view class="user-img">
@@ -72,7 +76,16 @@
 			</view>
 			<view class="click-details"><image style="width: 15px;height: 15px;vertical-align: middle;" src="../../static/right.png"></image></view>
 		</view>
-		<view class="sign-out" v-if="userKey != ''"><button @click="loginNo">退出登陆</button></view>
+		<!-- #ifdef APP-PLUS -->
+		<view class="my-list" @click="goInstall">
+			<view class="details">
+				<u-icon name="order" color="#333" size="28"></u-icon>
+				<text>设置</text>
+			</view>
+			<view class="click-details"><image style="width: 15px;height: 15px;vertical-align: middle;" src="../../static/right.png"></image></view>
+		</view>
+		<!-- #endif -->
+		<view class="sign-out" v-if="userKey !== '' && phone !== ''"><button @click="loginNo">退出登陆</button></view>
 	</view>
 </template>
 
@@ -86,21 +99,42 @@ export default {
 			userKey: '',
 			phone: '',
 			timeData: {},
-			type: '4'
+			type: '4',
+			userId:''
 		};
 	},
 	onLoad() {},
 	onShow() {
-		//如果用户登陆过
-		const userinfoAll = uni.getStorageSync('userInfoAll');
-		//获取用户唯一标识
-		this.userInfoAll = userinfoAll;
-		this.phone = userinfoAll.user_phone;
-		//userKey
-		this.userKey = uni.getStorageSync('userKey');
+		this.getJudgeStorage();
 		this.time(); //获取看课时长
 	},
 	methods: {
+		getJudgeStorage() {
+			let that = this;
+			uni.getStorage({
+				key: 'userInfoAll',
+				success: function(res) {
+					console.log('userInfoAll成功');
+					that.userInfoAll = res.data;
+					that.phone = res.data.user_phone;
+					that.userId=res.data.user_id
+				},
+				fail: function(err) {
+					that.userInfoAll = '';
+					that.phone = '';
+				}
+			});
+			uni.getStorage({
+				key: 'userKey',
+				success: function(res) {
+					console.log('userKey成功');
+					that.userKey = res.data;
+				},
+				fail: function(err) {
+					that.userKey = '';
+				}
+			});
+		},
 		//获取看课时长
 		time() {
 			this.$api.three
@@ -116,11 +150,11 @@ export default {
 
 		//退出登录
 		loginNo() {
-			this.$api
-				.loginOut({
+			this.$api.loginOut({
 					cache_key: this.userKey
 				})
 				.then(res => {
+					console.log({res},'退出登录')
 					if (res.data.event != '100') {
 						return false;
 					}
@@ -129,10 +163,18 @@ export default {
 							title: '退出成功',
 							duration: 2000
 						});
-						uni.setStorageSync('userInfoAll', '');
-						uni.setStorageSync('userKey', '');
-						this.userKey = '';
-						this.phone = null;
+						try {
+							uni.removeStorageSync('userInfoAll');
+							uni.removeStorageSync('userKey');
+						} catch (e) {
+							// error
+						}
+						this.getJudgeStorage();
+						// #ifdef APP-PLUS
+						uni.reLaunch({
+							url: '../login/userLogin'
+						});
+						// #endif
 					}
 				});
 		},
@@ -161,7 +203,7 @@ export default {
 						withCredentials: true,
 						success: function(res) {
 							console.log(res, 'uni.getUserInfo');
-							that.xcxGetgetUserInfo(code, res.userInfo); //小程序getUserInfo 综合
+							that.xcxGetgetUserInfo(code, res.userInfo); //后台登录
 						}
 					});
 				}
@@ -173,7 +215,7 @@ export default {
 			console.log({ e });
 			if (e.detail.errMsg == 'getPhoneNumber:ok') {
 				console.log('用户点击了接受', e);
-				this.getPhone(e);
+				this.getPhone(e);//获取手机号
 			} else {
 				console.log('用户点击了拒绝');
 			}
@@ -184,14 +226,21 @@ export default {
 			console.log(e.detail, '-----');
 			var _this = this;
 			uni.login({
-				provider: 'weixin',
 				success: function(res) {
-					_this.code = res.code;
+					console.log({ res }, 'code');
 					_this.$api
 						.getPhone({
-							code: _this.code,
+							code: res.code,
 							encryptedData: e.detail.encryptedData,
-							iv: e.detail.iv
+							iv: e.detail.iv,
+							'info[user_id]': _this.userId,
+							// #ifdef MP-WEIXIN
+							'info[type]': 'weixin',
+							// #endif
+							// #ifdef MP-TOUTIAO
+							'info[type]': 'zijie',
+							// #endif
+							'info[xcx]': 'zkt'
 						})
 						.then(res => {
 							if (res.data.event != '100') {
@@ -205,14 +254,15 @@ export default {
 								_this.phone = res.data.data;
 								uni.setStorage({
 									key: 'userInfoAll',
-									data: {
-										user_phone: res.data.data
-									}
+									data: res.data.data
 								});
 								// _this.phone = res.data.data;
 								console.log('获取手机号的信息', _this.phone);
 							}
 						});
+				},
+				fail(err) {
+					console.log({ err }, 'errrrrr');
 				}
 			});
 		},
@@ -230,7 +280,7 @@ export default {
 						withCredentials: true,
 						success: function(res) {
 							console.log(res, '登录');
-							_this.getUserKey(e.detail, code, '15136298700'); // 获取用户标识
+							// _this.getUserKey(e.detail, code, '15136298700'); // 获取用户标识
 							_this.xcxGetgetUserInfo(code, res.userInfo); // 小程序getUserInfo 综合
 						}
 					});
@@ -256,14 +306,21 @@ export default {
 					uni.setStorageSync('userKey', res.data.data.cache_key);
 					console.log(res, 'xcxLogin');
 					let userList = res.data.data.userInfo;
+					_this.userId = userList.user_id;
 					userList.user_pic = userInfo.avatarUrl; //头像
 					userList.user_nickname = userInfo.nickName; //名称
-					userList.user_phone = '15136298700'; //手机号
 					userList.user_gender = userInfo.gender; //性别
 					userList.country = userInfo.country; //国家
 					userList.city = userInfo.city; //城市
 					userList.province = userInfo.province; //地区
-					uni.setStorageSync('userInfoAll', userList);
+					if(userList.user_phone==""&&userList.user_nickname==''){
+						_this.reserveUserInfo(userList); //存储用户信息
+					}else{
+						uni.setStorage({
+							key: 'userInfoAll',
+							data: userList
+						});
+					}
 					// 唯一标识
 					if (userList) {
 						_this.userInfoAll = userList;
@@ -271,7 +328,6 @@ export default {
 					}
 					_this.userKey = res.data.data.cache_key;
 					_this.time();
-					_this.reserveUserInfo(userList); //存储用户信息
 				} else {
 					uni.showToast({
 						title: '请重试~',
@@ -305,8 +361,15 @@ export default {
 
 		// 存储小程序用户信息
 		reserveUserInfo(data) {
+			let _this = this;
 			console.log(data, '存储信息');
 			let dataLists = {
+				// #ifdef MP-TOUTIAO
+				'info[type]': 'zijie',
+				// #endif
+				// #ifdef MP-WEIXIN
+				'info[type]': 'weixin',
+				// #endif
 				'info[user_id]': data.user_id,
 				'info[user_nickname]': data.user_nickname,
 				'info[user_pic]': data.user_pic,
@@ -343,6 +406,30 @@ export default {
 			}
 			uni.navigateTo({
 				url: '/pages/three/classRecord'
+			});
+		},
+		// 判断是否登录 是否存储手机号 设置  app端显示
+		goInstall() {
+			let userInfoAll = uni.getStorageSync('userInfoAll');
+			let userKey = uni.getStorageSync('userKey');
+			if (userKey == '') {
+				uni.showToast({
+					title: '请先登陆~',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
+			}
+			if (userInfoAll == '') {
+				uni.showToast({
+					title: '请先注册,登陆~',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
+			}
+			uni.navigateTo({
+				url: '/pages/install/install'
 			});
 		}
 	}

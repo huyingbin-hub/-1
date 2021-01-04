@@ -45,13 +45,18 @@
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "payment" : {}
+                "payment" : {},
+                "push" : {
+                    "unipush" : {}
+                },
+                "ad" : {}
             }
         }
     },
@@ -79,10 +84,11 @@
     },
     "mp-toutiao" : {
         "usingComponents" : true,
-        "appid" : "ttedf99b4472c2c82e",
+        "appid" : "tt9b4dedf00476bf57",
         "setting" : {
             "urlCheck" : false,
-            "es6" : true
+            "es6" : true,
+            "postcss" : true
         }
     }
 }

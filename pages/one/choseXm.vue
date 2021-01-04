@@ -38,6 +38,16 @@
 			this.userKey = uni.getStorageSync('userKey');
 			this.list()
 			var _this = this;
+			uni.getStorage({
+				key: 'userInfoAll',
+				success(res) {
+					this.userInfoAll = res.data;
+					this.phone = res.data.user_phone;
+				},
+				fail(err) {
+					
+				}
+			});
 		},
 		methods: {
 			// 查询数据

@@ -112,11 +112,11 @@
   padding: 10px 16px;
 }
 .look-details .class-all .mu.active text.data-v-7df655d4 {
-  color: #FF6900 !important;
+  color: #ff6900 !important;
 }
 .look-details .class-all .mu.active .line.data-v-7df655d4 {
   height: 2px;
-  background-color: #FF6900;
+  background-color: #ff6900;
   width: 10%;
   text-align: center;
   margin: 10px 45%;
@@ -167,14 +167,14 @@
   overflow: hidden;
 }
 .look-details .class-button .zx.active text.data-v-7df655d4 {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 .look-details .class-button .zx.data-v-7df655d4 {
   width: 40%;
   float: left;
   height: 44px;
   text-align: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid #eeeeee;
 }
 .look-details .class-button .zx image.data-v-7df655d4 {
@@ -188,18 +188,18 @@
   display: block;
 }
 .look-details .class-button .buy.active text.data-v-7df655d4 {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 .look-details .class-button .buy.data-v-7df655d4 {
   height: 44px;
   line-height: 44px;
   overflow: hidden;
   width: 59%;
-  border: 1px solid #FF6900;
+  border: 1px solid #ff6900;
   border-left: none !important;
   font-size: 16px;
-  color: #FFFFFF;
-  background-color: #FF6900;
+  color: #ffffff;
+  background-color: #ff6900;
   text-align: center;
 }
 

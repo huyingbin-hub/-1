@@ -1,1 +1,1 @@
-<view class="data-v-7df655d4"><web-view src="{{url}}" class="data-v-7df655d4"></web-view></view>
+<view class="data-v-7df655d4"><web-view style="height:100vh;width:100%;" src="{{url}}" class="data-v-7df655d4"></web-view></view>

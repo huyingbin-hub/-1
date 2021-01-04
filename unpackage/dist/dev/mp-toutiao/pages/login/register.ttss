@@ -43,7 +43,7 @@ image.data-v-24dc7ac2 {
   margin-top: 90rpx;
 }
 .register .uview_from.data-v-24dc7ac2 .u-border-bottom:after {
-  border-bottom: 1px solid #F4F4F4;
+  border-bottom: 1px solid #f4f4f4;
 }
 .register .uview_from .uview_from-item.data-v-24dc7ac2 {
   margin-top: 60rpx;
@@ -124,13 +124,13 @@ image.data-v-24dc7ac2 {
   z-index: 3;
   font-size: 34rpx;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .register-explain.data-v-24dc7ac2 {
   margin: 50rpx 0 0 0;
   font-size: 24rpx;
   font-weight: 500;
-  color: #9B9B9B;
+  color: #9b9b9b;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -142,6 +142,6 @@ image.data-v-24dc7ac2 {
           align-items: center;
 }
 .register-explain .textColorBlue.data-v-24dc7ac2 {
-  color: #FF6A01;
+  color: #ff6a01;
 }
 

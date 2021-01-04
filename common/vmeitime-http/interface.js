@@ -20,7 +20,8 @@ export default {
 	config: {
 		baseUrl: process.env.NODE_ENV === 'development' ? '/dpc' : '',
 		// 正常使用url
-		baseUrl: 'https://caigua.zhongjianedu.com/ztk.php',
+		// baseUrl: 'https://caigua.zhongjianedu.com/ztk.php',
+		baseUrl: 'https://www.zjtaoke.cn/ztk.php',
 		// 小程序登录url
 		loginUrl: 'https://www.zjtaoke.cn/login.php',
 		header: {

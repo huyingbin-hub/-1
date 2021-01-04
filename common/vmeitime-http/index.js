@@ -8,7 +8,7 @@ import http from './interface'
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 // loginUrl
 export default {
-	// 微信/头条小程序登录
+	// 通用登录
 	xcxLogin(data){
 		return http.request({
 			url: http.config.loginUrl + '/Login/login',
@@ -16,6 +16,69 @@ export default {
 			data,
 		})
 	},
+	// 通用存储用户信息
+	xcx_userxx(data){
+		return http.request({
+			url: http.config.loginUrl + '/Login/xcx_userxx',
+			method: 'POST',
+			data,
+		})
+	},
+	// 通用注册
+	register(data){
+		return http.request({
+			url: http.config.loginUrl + '/Login/register',
+			method: 'POST',
+			data,
+		})
+	},
+	// 通用获取验证码
+	sendsms(data){
+		return http.request({
+			url: http.config.loginUrl + '/sms/sendsms',
+			method: 'POST',
+			data,
+		})
+	},
+	//获取用户手机号
+	getPhone(data) {
+		return http.request({
+			url: http.config.loginUrl + '/Login/xcx_number',
+			method: 'POST',
+			data,
+		})
+	},
+	// 通用退出登录
+	loginOut(data) {
+		return http.request({
+			url: http.config.loginUrl + '/Login/logOut',
+			method: 'POST',
+			data,
+		})
+	},
+	// 通用忘记密码
+	forgetpwd(data) {
+		return http.request({
+			url: http.config.loginUrl + '/Login/forgetpwd',
+			method: 'POST',
+			data,
+		})
+	},
+	// 通用修改密码
+	editpwd(data) {
+		return http.request({
+			url: http.config.loginUrl + '/Login/editpwd',
+			method: 'POST',
+			data,
+		})
+	},
+	
+	
+	
+	
+	
+	
+	
 	//获取用户登录状态
 	getOpenId(data) {
 		return http.request({
@@ -32,14 +95,6 @@ export default {
 			data,
 		})
 	},
-	//获取用户手机号
-	getPhone(data) {
-		return http.request({
-			url: http.config.baseUrl + '/ZxtWxLogin/bindMobile',
-			method: 'POST',
-			data,
-		})
-	},
 	//用户登录
 	login(data) {
 		return http.request({
@@ -52,14 +107,6 @@ export default {
 	pay(data) {
 		return http.request({
 			url: http.config.baseUrl + '/ZxtWxPay/pay',
-			method: 'POST',
-			data,
-		})
-	},
-	//退出登录
-	loginOut(data) {
-		return http.request({
-			url: http.config.baseUrl + '/ZxtWxLogin/logOut',
 			method: 'POST',
 			data,
 		})

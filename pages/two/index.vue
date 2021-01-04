@@ -80,11 +80,16 @@
 				<button
 					style="background-color: #FFFFFF;color: #000;"
 					open-type="getPhoneNumber"
-					v-if="phone == null || phone == undefined || phone.length <= 0"
+					v-if="phone == '' && userKey !== ''"
 					@getphonenumber="getPhoneNumber"
 					withCredentials="true"
 				>
+					<!-- #ifndef MP-TOUTIAO -->
 					立即注册
+					<!-- #endif -->
+					<!-- #ifdef MP-TOUTIAO -->
+					手机号一键登录
+					<!-- #endif -->
 				</button>
 				<!-- #endif -->
 				<!-- #ifdef MP-WEIXIN -->
@@ -146,6 +151,7 @@ export default {
 				km_id: '',
 				page: ''
 			},
+			userId:'',
 			phone: '',
 			myclassList: [],
 			nodataShow: false,
@@ -206,15 +212,8 @@ export default {
 	onShow() {
 		console.log('onShow');
 		this.isactive = '';
-		//如果用户登陆过
-		const userinfoAll = uni.getStorageSync('userInfoAll');
-		//获取用户唯一标识
-		this.userInfoAll = userinfoAll;
-		this.phone = this.userInfoAll.user_phone || '';
-		console.log(this.phone);
-		//userKey
-		this.userKey = uni.getStorageSync('userKey');
 		this.oneData();
+		this.getJudgeStorage();
 	},
 
 	onLoad: function(option) {
@@ -224,6 +223,31 @@ export default {
 	},
 
 	methods: {
+		getJudgeStorage() {
+			let that = this;
+			uni.getStorage({
+				key: 'userInfoAll',
+				success: function(res) {
+					that.userInfoAll = res.data;
+					that.phone = res.data.user_phone;
+					that.userId=res.data.user_id
+				},
+				fail: function(err) {
+					that.userInfoAll = '';
+					that.phone = '';
+				}
+			});
+			uni.getStorage({
+				key: 'userKey',
+				success: function(res) {
+					console.log('userKey成功');
+					that.userKey = res.data;
+				},
+				fail: function(err) {
+					that.userKey = '';
+				}
+			});
+		},
 		// 立即观看 跳转视频界面
 		look(data) {
 			uni.navigateTo({
@@ -244,16 +268,24 @@ export default {
 
 		//获取手机号
 		getPhone(e) {
+			console.log(e.detail, '-----');
 			var _this = this;
 			uni.login({
-				provider: 'weixin',
 				success: function(res) {
-					_this.code = res.code;
+					console.log({ res }, 'code');
 					_this.$api
 						.getPhone({
-							code: _this.code,
+							code: res.code,
 							encryptedData: e.detail.encryptedData,
-							iv: e.detail.iv
+							iv: e.detail.iv,
+							'info[user_id]': _this.userId,
+							// #ifdef MP-WEIXIN
+							'info[type]': 'weixin',
+							// #endif
+							// #ifdef MP-TOUTIAO
+							'info[type]': 'zijie',
+							// #endif
+							'info[xcx]': 'zkt'
 						})
 						.then(res => {
 							if (res.data.event != '100') {
@@ -264,18 +296,18 @@ export default {
 								return false;
 							}
 							if (res.data.event == '100') {
-								/* uni.setStorageSync('phone',  res.data.data);
-								_this.phone= uni.getStorageSync('phone'); */
 								_this.phone = res.data.data;
 								uni.setStorage({
 									key: 'userInfoAll',
-									data: {
-										user_phone: res.data.data
-									}
+									data: res.data.data
 								});
+								// _this.phone = res.data.data;
 								console.log('获取手机号的信息', _this.phone);
 							}
 						});
+				},
+				fail(err) {
+					console.log({ err }, 'errrrrr');
 				}
 			});
 		},
@@ -325,7 +357,7 @@ export default {
 						withCredentials: true,
 						success: function(res) {
 							console.log(res, '登录');
-							_this.getUserKey(e.detail, code, '15136298700'); // 获取用户标识
+							// _this.getUserKey(e.detail, code, '15136298700'); // 获取用户标识
 							_this.xcxGetgetUserInfo(code, res.userInfo); // 小程序getUserInfo 综合
 						}
 					});
@@ -351,19 +383,26 @@ export default {
 					uni.setStorageSync('userKey', res.data.data.cache_key);
 					console.log(res, 'xcxLogin');
 					let userList = res.data.data.userInfo;
+					_this.userId = userList.user_id;
 					userList.user_pic = userInfo.avatarUrl; //头像
 					userList.user_nickname = userInfo.nickName; //名称
-					userList.user_phone = '15136298700'; //手机号
 					userList.user_gender = userInfo.gender; //性别
 					userList.country = userInfo.country; //国家
 					userList.city = userInfo.city; //城市
 					userList.province = userInfo.province; //地区
-					uni.setStorageSync('userInfoAll', userList);
+					if(userList.user_phone==""&&userList.user_nickname==''){
+						_this.reserveUserInfo(userList); //存储用户信息
+					}else{
+						uni.setStorage({
+							key: 'userInfoAll',
+							data: userList
+						});
+					}
+					// 唯一标识
 					if (userList) {
 						_this.userInfoAll = userList;
 						_this.phone = userList.user_phone;
 					}
-					_this.reserveUserInfo(userList); //存储用户信息
 					_this.userKey = res.data.data.cache_key;
 				} else {
 					uni.showToast({
@@ -380,6 +419,12 @@ export default {
 		reserveUserInfo(data) {
 			console.log(data, '存储信息');
 			let dataLists = {
+				// #ifdef MP-TOUTIAO
+				'info[type]':'zijie',
+				// #endif
+				// #ifdef MP-WEIXIN
+				'info[type]':'weixin',
+				// #endif
 				'info[user_id]': data.user_id,
 				'info[user_nickname]': data.user_nickname,
 				'info[user_pic]': data.user_pic,
@@ -470,6 +515,7 @@ export default {
 			};
 			this.$api.two.myclassList(this.myclassData).then(res => {
 				console.log(res.data);
+				// uni.clearStorageSync('userInfoAll')
 				if (res.data.event == '100') {
 					this.myclassList = res.data.data;
 				} else {
