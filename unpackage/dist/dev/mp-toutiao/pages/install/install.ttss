@@ -53,8 +53,7 @@
   width: 670rpx;
   height: 100rpx;
   background: #e8e8e8;
-  -webkit-border-radius: 50rpx;
-          border-radius: 50rpx;
+  border-radius: 50rpx;
   line-height: 100rpx;
   font-size: 34rpx;
   font-family: PingFang SC;

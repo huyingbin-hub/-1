@@ -92,8 +92,7 @@ page.data-v-1099f5cf {
 .jl .scroll-view-item image.data-v-1099f5cf {
   width: 100%;
   height: 120rpx;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
 }
 .jl .title_level1.data-v-1099f5cf {
   font-size: 12px;

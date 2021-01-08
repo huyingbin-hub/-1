@@ -27,8 +27,7 @@
 .slot-content.data-v-4a7c6862 {
   padding: 20rpx;
   width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .login-container.data-v-4a7c6862 {
   width: 100%;

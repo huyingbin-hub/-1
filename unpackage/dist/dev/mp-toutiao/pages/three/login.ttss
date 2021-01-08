@@ -87,8 +87,7 @@ page.data-v-2d7f8fcf {
   width: 100%;
   font-size: 14px;
   background-color: #FF6900;
-  -webkit-border-radius: 10px;
-          border-radius: 10px;
+  border-radius: 10px;
   margin-bottom: 10px;
 }
 .login .uni-btn-v text.data-v-2d7f8fcf {

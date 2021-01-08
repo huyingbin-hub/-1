@@ -43,8 +43,9 @@
 				</view>
 				<view class="textColorBlue" @click="gotoForget">忘记密码？</view>
 			</view>
-			<view><u-divider color="#CCCCCC" half-width="75" fontSize="24" border-color="#CCCCCC">其他方式登录</u-divider></view>
-			<view class="sanFang-icon"><image @click="waiLian" class="sanFang" src="../../static/images/login/wx.png" mode=""></image></view>
+			<!-- 底部 -->
+			<!-- <view><u-divider color="#CCCCCC" half-width="75" fontSize="24" border-color="#CCCCCC">其他方式登录</u-divider></view>
+			<view class="sanFang-icon"><image @click="waiLian" class="sanFang" src="../../static/images/login/wx.png" mode=""></image></view> -->
 		</view>
 
 		<!--协议同意弹窗-->

@@ -64,8 +64,7 @@ scroll-view.data-v-78e7dba6 ::-webkit-scrollbar {
 .scroll-view-item image.data-v-78e7dba6 {
   width: 100%;
   height: 120rpx;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
 }
 .title_level1.data-v-78e7dba6 {
   font-size: 12px;
@@ -113,8 +112,7 @@ scroll-view.data-v-78e7dba6 ::-webkit-scrollbar {
   color: #ffffff;
   width: 90%;
   background-color: #ff6900;
-  -webkit-border-radius: 22px;
-          border-radius: 22px;
+  border-radius: 22px;
 }
 .content .xm-chose .all.data-v-78e7dba6 {
   overflow: hidden;
@@ -222,8 +220,7 @@ scroll-view.data-v-78e7dba6 ::-webkit-scrollbar {
   line-height: 30px;
   font-size: 14px;
   background: #ff6900;
-  -webkit-border-radius: 2px;
-          border-radius: 2px;
+  border-radius: 2px;
   margin-top: 10px;
   color: #ffffff;
 }
@@ -265,12 +262,10 @@ scroll-view.data-v-78e7dba6 ::-webkit-scrollbar {
   padding: 10px 16px;
 }
 .two .content1 .content-list.data-v-78e7dba6 {
-  -webkit-box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.16);
-          box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 4px 8px 4px rgba(0, 0, 0, 0.16);
   margin-bottom: 20px;
   padding: 12px 14px 12px 10px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
+  border-radius: 5px;
   overflow: hidden;
 }
 .two .content1 .content-list .content-img.data-v-78e7dba6 {
@@ -286,8 +281,7 @@ scroll-view.data-v-78e7dba6 ::-webkit-scrollbar {
 .two .content1 .content-list .content-img image.data-v-78e7dba6 {
   width: 35px;
   height: 35px;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   margin-top: 5px;
 }
 .two .content1 .content-list .content-img view.data-v-78e7dba6 {
