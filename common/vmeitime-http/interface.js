@@ -13,6 +13,7 @@ const decorator_resource_info = (data) => {
 	//sort key
 	const reverse_key = Object.keys(data).sort();
 	let resource_code = reverse_key.reduce((rst, v) => rst += `${v}=${ data[v]}&`, '').slice(0, -1) + ENV_SUFFIX;
+	console.log(resource_code, 'ccode')
 	data['sign'] = $this.$md5(resource_code);
 	data['logtype'] = 'pc';
 };

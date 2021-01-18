@@ -151,7 +151,7 @@ export default {
 				km_id: '',
 				page: ''
 			},
-			userId:'',
+			userId: '',
 			phone: '',
 			myclassList: [],
 			nodataShow: false,
@@ -230,7 +230,7 @@ export default {
 				success: function(res) {
 					that.userInfoAll = res.data;
 					that.phone = res.data.user_phone;
-					that.userId=res.data.user_id
+					that.userId = res.data.user_id;
 				},
 				fail: function(err) {
 					that.userInfoAll = '';
@@ -273,6 +273,7 @@ export default {
 			uni.login({
 				success: function(res) {
 					console.log({ res }, 'code');
+					_this.getJudgeStorage();
 					_this.$api
 						.getPhone({
 							code: res.code,
@@ -285,7 +286,10 @@ export default {
 							// #ifdef MP-TOUTIAO
 							'info[type]': 'zijie',
 							// #endif
-							'info[xcx]': 'zkt'
+							'info[xcx]': 'zkt',
+							// #ifdef MP-TOUTIAO||MP-WEIXIN
+							'info[client_id]': _this.userInfoAll.client_id,
+							// #endif
 						})
 						.then(res => {
 							if (res.data.event != '100') {
@@ -390,9 +394,9 @@ export default {
 					userList.country = userInfo.country; //国家
 					userList.city = userInfo.city; //城市
 					userList.province = userInfo.province; //地区
-					if(userList.user_phone==""&&userList.user_nickname==''){
+					if (userList.user_phone == '' && userList.user_nickname == '') {
 						_this.reserveUserInfo(userList); //存储用户信息
-					}else{
+					} else {
 						uni.setStorage({
 							key: 'userInfoAll',
 							data: userList
@@ -420,10 +424,10 @@ export default {
 			console.log(data, '存储信息');
 			let dataLists = {
 				// #ifdef MP-TOUTIAO
-				'info[type]':'zijie',
+				'info[type]': 'zijie',
 				// #endif
 				// #ifdef MP-WEIXIN
-				'info[type]':'weixin',
+				'info[type]': 'weixin',
 				// #endif
 				'info[user_id]': data.user_id,
 				'info[user_nickname]': data.user_nickname,
@@ -431,7 +435,10 @@ export default {
 				'info[user_gender]': data.user_gender,
 				'info[city]': data.city,
 				'info[province]': data.province,
-				'info[country]': data.country
+				'info[country]': data.country,
+				// #ifdef MP-TOUTIAO||MP-WEIXIN
+				'info[client_id]': data.client_id
+				// #endif
 			};
 			let jiamiData = dataLists;
 			_this.$api.xcx_userxx(dataLists).then(res => {

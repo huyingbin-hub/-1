@@ -171,7 +171,7 @@ export default {
 					postObj.objList.user_nickname = postObj.objList.user_phone;
 					}
 					postObj.objList.user_phone = this.phone;
-					this.$u.toast('登录成功!');
+					this.$u.toast('登录成功');
 					// this.reserveUserInfo(res.data.objList);// 存储用户信息
 					uni.setStorage({
 						key: 'userInfoAll',

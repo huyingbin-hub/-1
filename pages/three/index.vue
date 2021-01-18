@@ -1,6 +1,7 @@
 <template>
 	<view class="three">
 		<!--登录前页面-->
+		<!-- <button type="default" @click="clear" style="margin-top: 50rpx;">清除</button> -->
 		<view class="no-login" v-if="userKey == '' || phone == ''">
 			<view class="nav">我的</view>
 			<view class="login">
@@ -100,15 +101,17 @@ export default {
 			phone: '',
 			timeData: {},
 			type: '4',
-			userId:''
+			userId: ''
 		};
 	},
 	onLoad() {},
 	onShow() {
 		this.getJudgeStorage();
-		this.time(); //获取看课时长
 	},
 	methods: {
+		clear() {
+			uni.clearStorage();
+		},
 		getJudgeStorage() {
 			let that = this;
 			uni.getStorage({
@@ -117,7 +120,7 @@ export default {
 					console.log('userInfoAll成功');
 					that.userInfoAll = res.data;
 					that.phone = res.data.user_phone;
-					that.userId=res.data.user_id
+					that.userId = res.data.user_id;
 				},
 				fail: function(err) {
 					that.userInfoAll = '';
@@ -129,6 +132,7 @@ export default {
 				success: function(res) {
 					console.log('userKey成功');
 					that.userKey = res.data;
+					that.time(); //获取看课时长
 				},
 				fail: function(err) {
 					that.userKey = '';
@@ -150,11 +154,12 @@ export default {
 
 		//退出登录
 		loginNo() {
-			this.$api.loginOut({
+			this.$api
+				.loginOut({
 					cache_key: this.userKey
 				})
 				.then(res => {
-					console.log({res},'退出登录')
+					console.log({ res }, '退出登录');
 					if (res.data.event != '100') {
 						return false;
 					}
@@ -215,7 +220,7 @@ export default {
 			console.log({ e });
 			if (e.detail.errMsg == 'getPhoneNumber:ok') {
 				console.log('用户点击了接受', e);
-				this.getPhone(e);//获取手机号
+				this.getPhone(e); //获取手机号
 			} else {
 				console.log('用户点击了拒绝');
 			}
@@ -225,41 +230,71 @@ export default {
 		getPhone(e) {
 			console.log(e.detail, '-----');
 			var _this = this;
+			_this.getJudgeStorage();
 			uni.login({
 				success: function(res) {
 					console.log({ res }, 'code');
-					_this.$api
-						.getPhone({
-							code: res.code,
-							encryptedData: e.detail.encryptedData,
-							iv: e.detail.iv,
-							'info[user_id]': _this.userId,
-							// #ifdef MP-WEIXIN
-							'info[type]': 'weixin',
-							// #endif
-							// #ifdef MP-TOUTIAO
-							'info[type]': 'zijie',
-							// #endif
-							'info[xcx]': 'zkt'
-						})
-						.then(res => {
-							if (res.data.event != '100') {
-								uni.showToast({
-									title: '信息出错',
-									duration: 2000
-								});
-								return false;
+					uni.getUserInfo({
+						withCredentials: true,
+						success: function(res) {
+							console.log(res, '登录');
+						}
+					});
+					let datas = {
+						code: res.code,
+						encryptedData: e.detail.encryptedData,
+						iv: e.detail.iv,
+						'info[user_id]': _this.userId,
+						// #ifdef MP-WEIXIN
+						'info[type]': 'weixin',
+						// #endif
+						// #ifdef MP-TOUTIAO
+						'info[type]': 'zijie',
+						// #endif
+						'info[xcx]': 'zkt',
+						// #ifdef MP-TOUTIAO||MP-WEIXIN
+						'info[client_id]': _this.userInfoAll.client_id
+						// #endif
+					};
+					_this.$api.getPhone(datas).then(res => {
+						console.log(datas, 'datas');
+						console.log(res, '出错信息');
+						if (res.data.event != '100') {
+							uni.showToast({
+								title: '信息出错,请重试',
+								duration: 2000
+							});
+							try {
+								uni.removeStorageSync('userInfoAll');
+								uni.removeStorageSync('userKey');
+							} catch (e) {
+								// error
 							}
-							if (res.data.event == '100') {
-								_this.phone = res.data.data;
-								uni.setStorage({
-									key: 'userInfoAll',
-									data: res.data.data
-								});
-								// _this.phone = res.data.data;
-								console.log('获取手机号的信息', _this.phone);
-							}
-						});
+							_this.getJudgeStorage();
+							return false;
+						}
+						if (res.data.event == '100') {
+							// _this.$nextTick(function(){
+							// })
+							let userInfos = res.data.data.userInfo;
+							console.log(userInfos, 'userInfos返回信息');
+							_this.phone = userInfos.user_phone;
+							_this.userInfoAll.user_id = userInfos.user_id;
+							_this.userInfoAll.user_phone = userInfos.user_phone;
+							uni.setStorage({
+								key: 'userInfoAll',
+								data: _this.userInfoAll
+							});
+							_this.getJudgeStorage();
+							// uni.setStorage({
+							// 	key: 'userKey',
+							// 	data: res.data.data.cache_key
+							// });
+							// _this.phone = res.data.data;
+							console.log('获取手机号的信息', _this.phone);
+							this.time();
+						}
+					});
 				},
 				fail(err) {
 					console.log({ err }, 'errrrrr');
@@ -313,16 +348,16 @@ export default {
 					userList.country = userInfo.country; //国家
 					userList.city = userInfo.city; //城市
 					userList.province = userInfo.province; //地区
-					if(userList.user_phone==""&&userList.user_nickname==''){
+					if (userList.user_phone == '' && userList.user_nickname == '') {
 						_this.reserveUserInfo(userList); //存储用户信息
-					}else{
+					} else {
 						uni.setStorage({
 							key: 'userInfoAll',
 							data: userList
 						});
 					}
 					// 唯一标识
-					if (userList) {
+					if (userList.length > 0) {
 						_this.userInfoAll = userList;
 						_this.phone = userList.user_phone;
 					}
@@ -376,7 +411,10 @@ export default {
 				'info[user_gender]': data.user_gender,
 				'info[city]': data.city,
 				'info[province]': data.province,
-				'info[country]': data.country
+				'info[country]': data.country,
+				// #ifdef MP-TOUTIAO||MP-WEIXIN
+				'info[client_id]': data.client_id
+				// #endif
 			};
 			let jiamiData = dataLists;
 			_this.$api.xcx_userxx(dataLists).then(res => {

@@ -5,7 +5,7 @@
     "postcss": true
   },
   "appid": "tt9b4dedf00476bf57",
-  "projectname": "uni.zhongxuetang",
+  "projectname": "中课堂",
   "condition": {
     "miniprogram": {
       "current": 0,
